@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -31,12 +32,16 @@ class AuthController extends Controller
           ]); */
          //validated olmuş verileri kullanarak database e kaydet
          //password hashed edilir(laravel tarafından)
-          User::create($validated);
-
-          dd('ok');
+         $user = User::create($validated);
 
         //Login
 
+        //register edilen kullanıcının otomatik login olmasını sağlıyor
+        Auth::login($user);
+
         //Redirect
+
+        //login başarılı ise home page git. 
+        return redirect()->route('home');
     }
 }
