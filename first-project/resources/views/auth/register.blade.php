@@ -7,10 +7,10 @@
 
         {{-- old ile gelen veriyi tekrar kullanabiliriz --}}
 
-        <input type="text" name="username" value="{{old('username')}}" placeholder="Username" class="@error('username') ring-red-500 @enderror">
+        <input type="text" name="name" value="{{old('name')}}" placeholder="Name" class="@error('name') ring-red-500 @enderror">
         
   {{--       gönderilen requestte hata varsa @error ile hata mesajını gösterm --}}
-        @error('username')
+        @error('name')
             <div class="error">{{ $message }}</div>
         @enderror
 
