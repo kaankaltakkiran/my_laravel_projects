@@ -16,9 +16,10 @@ class AuthController extends Controller
         //return view('auth.register');
 
         //validate
+        // unique:users users tablosundaki email uniquesi
         $validated=$request->validate([
             'name' => ['required','max:255'],
-            'email' => ['required','email','max:255'],
+            'email' => ['required','email','max:255','unique:users'],
             'password' => ['required','min:3','confirmed'],
         ]);
 
