@@ -10,7 +10,23 @@ class AuthController extends Controller
     {
      /*    die and dump */
         //dd('ok');
-        dd($request->all());
+       // dd($request->all());
         //return view('auth.register');
+
+        //validate
+        $request->validate([
+            'username' => ['required','max:255'],
+            'email' => ['required','email','max:255'],
+            'password' => ['required','min:3','confirmed'],
+        ]);
+
+        dd('ok');
+
+        //Register
+
+
+        //Login
+
+        //Redirect
     }
 }
