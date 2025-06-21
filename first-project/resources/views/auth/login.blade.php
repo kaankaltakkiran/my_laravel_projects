@@ -28,7 +28,7 @@
             <div class="error">{{ $message }}</div>
         @enderror
 
-        <button class="btn" >Login</button>
+        <button class="btn primary-btn" >Login</button>
     </form>
     </div>
 </x-layout>

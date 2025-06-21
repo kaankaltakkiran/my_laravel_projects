@@ -63,12 +63,26 @@ class AuthController extends Controller
             //return redirect()->route('home');
 
             //intended girş yapması gereken bir sayfaya login olduktan sonra gitmesini sağlar
-            return redirect()->intended();
+            //return redirect()->intended();
+            return redirect()->intended('dashboard');
           }
           //login başarısız ise login sayfasına geri git.
           return back()->withErrors([
             'failed' => 'Plase check your credentials and try again',
           ]);
 
+    }
+
+    //Logout user
+    public function logout(Request $request)
+    {
+      //logout kullanıcı oturumunu sonlandır
+      Auth::logout();
+      //oturumu geçersiz kılmak için
+     $request->session()->invalidate();
+     //oturum yeniden oluşturulur(csrf token)
+     $request->session()->regenerateToken();
+      //redirect home page
+      return redirect()->route('home');
     }
 }

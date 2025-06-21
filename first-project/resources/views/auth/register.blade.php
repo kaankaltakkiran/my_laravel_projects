@@ -36,7 +36,7 @@
             <div class="error">{{ $message }}</div>
         @enderror
 
-        <button class="btn" >Register</button>
+        <button class="primary-btn" >Register</button>
     </form>
     </div>
 </x-layout>

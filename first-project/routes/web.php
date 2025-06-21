@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 
 /* Route::get('/', function () {
     return view('welcome');
@@ -32,4 +33,8 @@ Route::get('/login', function () {
 
 Route::post('/login', [AuthController::class, 'login']);
 
+//dashboard için route
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
