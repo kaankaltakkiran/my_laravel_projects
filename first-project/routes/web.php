@@ -25,7 +25,11 @@ Route::get('/register', function () {
 /* name vermene gerek yok son register contorledeki function ismi  */
 Route::post('register', [AuthController::class, 'register']);
 
+
 Route::get('/login', function () {
     return view('auth.login');
 })->name('login');
+
+Route::post('/login', [AuthController::class, 'login']);
+
 

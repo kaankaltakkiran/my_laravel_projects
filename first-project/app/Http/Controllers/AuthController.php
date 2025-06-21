@@ -38,11 +38,37 @@ class AuthController extends Controller
         //Login
 
         //register edilen kullanıcının otomatik login olmasını sağlıyor
+        //login kontrol etmez bilgileri.
         Auth::login($user);
 
         //Redirect
 
         //login başarılı ise home page git. 
         return redirect()->route('home');
+    }
+    public function login(Request $request)
+    {
+      //validate user 
+        $validated=$request->validate([
+            'email' => ['required','email','max:255'],
+            'password' => ['required'],
+        ]);
+          //login user
+          //attempt kullanıcı doğrulamasını sağlar
+          //attempt başarılı ise 1 başarısız ise 0 döndürür
+          //remember remember checkbox unu aktif eder
+          if(Auth::attempt($validated,$request->remember)){
+
+            //login başarılı ise home page git. 
+            //return redirect()->route('home');
+
+            //intended girş yapması gereken bir sayfaya login olduktan sonra gitmesini sağlar
+            return redirect()->intended();
+          }
+          //login başarısız ise login sayfasına geri git.
+          return back()->withErrors([
+            'failed' => 'Plase check your credentials and try again',
+          ]);
+
     }
 }
