@@ -15,6 +15,9 @@
     </div>
 </div> 
 @endforeach
+{{-- Sayfalama --}}
+{{-- links sayfalama öğelerini getirir. --}}
+{{$posts->links()}}
 </div>
 </x-layout>
 

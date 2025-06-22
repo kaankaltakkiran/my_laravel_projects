@@ -23,7 +23,8 @@ class PostController extends Controller
         //created_at göre sırala.
         //$posts=Post::orderBy('created_at','desc')->get();
         //yukardaki ile aynı
-        $posts=Post::latest()->get();
+        //paginate ile sayfalama yapar.s
+        $posts=Post::latest()->paginate(6);
 
         return view('posts.index',['posts'=>$posts]);
     }
