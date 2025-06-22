@@ -17,7 +17,13 @@ class PostFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            //bir tane örnek oluşturuyoruz post için
+            'user_id'=>1,
+            //sentence ile cümle oluşturuyoruz
+            'title'=>fake()->sentence(),
+            //paragraph ile paragraf oluşturuyoruz
+            'body'=>fake()->paragraph(20),
+
         ];
     }
 }
