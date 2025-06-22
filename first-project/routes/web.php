@@ -3,14 +3,22 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PostController;
 
 /* Route::get('/', function () {
     return view('welcome');
 }); */
 
-Route::get('/', function () {
+/* Route::get('/', function () {
     return view('posts.index');
 })->name('home');
+ */
+//otomatik olarak posts route'ına yönlendirir.
+Route::redirect('/', 'posts');
+
+// CRUD işlemleri için route
+//hepsini tek tek yazmaktansa resource ile tek seferde yazabiliriz
+Route::resource('posts', PostController::class);
 
 //guest middleware ile sadece guest user için route erişimini sağlar
 Route::middleware('guest')->group(function () {

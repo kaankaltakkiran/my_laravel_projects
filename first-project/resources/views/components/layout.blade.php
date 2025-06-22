@@ -15,7 +15,7 @@
   <header class="bg-slate-800 shadow-lg">
     <nav>
         {{-- route fonksiyonu ile ilgili route name yazılarak route işlemi gerçekleşir. --}}
-       <a href="{{route('home')}}" class="nav-link">Home</a>
+       <a href="{{route('posts.index')}}" class="nav-link">Home</a>
 
        {{-- giriş yapmış kullanıcılar için --}}
        @auth

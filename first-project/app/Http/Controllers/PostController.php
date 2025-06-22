@@ -9,15 +9,16 @@ use App\Models\Post;
 class PostController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * kullanıcının postlarını listeler
      */
     public function index()
     {
-        //
+        // post sayfasını göster
+        return view('posts.index');
     }
 
     /**
-     * Show the form for creating a new resource.
+     * gönderi olusturma sayfasını açar
      */
     public function create()
     {
@@ -25,7 +26,7 @@ class PostController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * veri tabanına yeni bir post ekler
      */
     public function store(StorePostRequest $request)
     {
@@ -33,7 +34,7 @@ class PostController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * gönderi detaylarını gösterir
      */
     public function show(Post $post)
     {
@@ -41,7 +42,7 @@ class PostController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * gönderi düzenleme sayfasını açar
      */
     public function edit(Post $post)
     {
@@ -49,7 +50,7 @@ class PostController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * veri tabanındaki postu günceller
      */
     public function update(UpdatePostRequest $request, Post $post)
     {
@@ -57,7 +58,7 @@ class PostController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * veri tabanındaki postu siler
      */
     public function destroy(Post $post)
     {
