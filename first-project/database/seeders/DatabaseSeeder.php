@@ -18,6 +18,6 @@ class DatabaseSeeder extends Seeder
         //10 tane user oluşturuyor.
         // User::factory(10)->create();
          //15 tane örnek oluşturuyoruz
-         Post::factory(10)->create();
+         Post::factory(2)->create();
     }
 }

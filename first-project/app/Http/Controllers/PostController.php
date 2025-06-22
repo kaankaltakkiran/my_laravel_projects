@@ -14,7 +14,18 @@ class PostController extends Controller
     public function index()
     {
         // post sayfasını göster
-        return view('posts.index');
+        //dizi ile veri yolluyoruz
+       /*  return view('posts.index',[
+            'posts'=>Post::all(),
+        ]); */
+          
+        //postları oluştur.
+        //created_at göre sırala.
+        //$posts=Post::orderBy('created_at','desc')->get();
+        //yukardaki ile aynı
+        $posts=Post::latest()->get();
+
+        return view('posts.index',['posts'=>$posts]);
     }
 
     /**
