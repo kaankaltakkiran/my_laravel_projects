@@ -72,7 +72,8 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        //edit sayfasını göster ve postları yola
+        return view('posts.edit',['post'=>$post]);   
     }
 
     /**
@@ -81,6 +82,17 @@ class PostController extends Controller
     public function update(Request $request, Post $post)
     {
         //
+         //validation
+        $validated=$request->validate([
+            'title'=>['required','max:255'],
+            'body'=>'required',
+        ]);
+        //update post
+       $post->update($validated);
+         
+        // with metodu ile session mesajı oluşturur.
+        //yani key value ile session mesajı oluşturur.
+        return redirect('dashboard')->with('success','Post updated successfully');
     }
 
     /**

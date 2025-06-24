@@ -37,6 +37,8 @@
 @foreach ($posts as $post)
 {{-- postCard componentini kullanarak postları tek tek yazdırma --}}
 <x-postCard :post="$post" >
+    {{-- Update Post --}}
+   <a href="{{route('posts.edit', $post)}}" class="bg-green-500 text-white px-2 py-1 text-xs rounded-md">Update</a>
  {{-- Delete post--}}
  <form action="{{route('posts.destroy', $post)}}" method="POST">
     @csrf
