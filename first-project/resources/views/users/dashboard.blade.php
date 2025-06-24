@@ -4,15 +4,13 @@
 
 <div class="card mb-4">
     <h2 class="font-bold mb-4">Create Post</h2>
+  
  {{--    Session message --}}
  <div >
     @if (session('success'))
-    <div class="success text-green-500">{{ session('success') }}</div>
+    {{-- istersek bg parametresini de verebiliriz  --}}
+     <x-flashMsg msg="{{ session('success') }}" />
     @endif
-    @if (session('error'))
-    <div class="error text-red-500">{{ session('error') }}</div>
-    @endif
-    
  </div>
 
    {{--  posts.store çünkü controllerdaki bu fonksiyon veri tabanına yeni bir post ekler --}}
