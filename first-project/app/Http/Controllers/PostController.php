@@ -61,7 +61,10 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        //
+        //show sayfasını göster ve postları yola
+        return view('posts.show',[
+            'post'=>$post,
+        ]);
     }
 
     /**
