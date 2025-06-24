@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StorePostRequest;
-use App\Http\Requests\UpdatePostRequest;
+use Illuminate\Http\Request;
 use App\Models\Post;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -40,9 +40,20 @@ class PostController extends Controller
     /**
      * veri tabanına yeni bir post ekler
      */
-    public function store(StorePostRequest $request)
+    public function store(Request $request)
     {
-        //
+        //validation
+        $validated=$request->validate([
+            'title'=>['required','max:255'],
+            'body'=>'required',
+        ]);
+        //post oluştur
+        //ilgi kullanıcıya ait post oluşturur. 
+        Auth::user()->posts()->create($validated);
+         
+        // with metodu ile session mesajı oluşturur.
+        //yani key value ile session mesajı oluşturur.
+        return back()->with('success','Post created successfully');
     }
 
     /**
@@ -64,7 +75,7 @@ class PostController extends Controller
     /**
      * veri tabanındaki postu günceller
      */
-    public function update(UpdatePostRequest $request, Post $post)
+    public function update(Request $request, Post $post)
     {
         //
     }
