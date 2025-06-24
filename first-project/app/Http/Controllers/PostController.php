@@ -4,10 +4,26 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
-class PostController extends Controller
+/* HasMiddleware ile ara katman ekledik */
+class PostController extends Controller implements HasMiddleware
 {
+    public static function middleware(): array
+    {
+       
+        return [
+             /* auth middleware sadece store methoduna uygulanacak */
+          // new Middleware('auth',only:['store']),
+          /*  index ve show methodlarına uygulanacak
+          login sayfasına yönlendircek
+          */
+           new Middleware('auth',except:['index','show']),
+        ];
+    }
     /**
      * kullanıcının postlarını listeler
      */
@@ -72,6 +88,8 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
+        //Gate ile yetkisiz kullanıcıları engeller.
+        Gate::authorize('modify',$post);
         //edit sayfasını göster ve postları yola
         return view('posts.edit',['post'=>$post]);   
     }
@@ -81,7 +99,8 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        //Gate ile yetkisiz kullanıcıları engeller.
+        Gate::authorize('modify',$post);
          //validation
         $validated=$request->validate([
             'title'=>['required','max:255'],
@@ -100,6 +119,8 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+         //Gate ile yetkisiz kullanıcıları engeller.
+        Gate::authorize('modify',$post);
         //postları sil
         $post->delete();
         //sildikten sonra yönlendirme
