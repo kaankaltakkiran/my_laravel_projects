@@ -88,6 +88,9 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        //postları sil
+        $post->delete();
+        //sildikten sonra yönlendirme
+        return back()->with('delete','Post deleted successfully');
     }
 }

@@ -5,7 +5,7 @@
     <h2 class="font-bold text-xl">{{ $post->title }}</h2>
     <div class="text-xs font-light mb-4">
         <span>{{ $post->created_at->diffForHumans() }}</span>
-       {{--  post user burdaki user parametresi route fonksiyonuna gönderili --}}r.
+       {{--  post user burdaki user parametresi route fonksiyonuna gönderilir --}}
         <a href="{{route('posts.user', $post->user)}}" class="text-blue-500 font-medium">{{ $post->user->name }}</a>
     </div>
     @if ($full)
@@ -21,5 +21,7 @@
         <a href="{{route('posts.show', $post)}}" class="text-blue-500 font-medium hover:underline">Read More &rarr;</a>
     </div>
     @endif
-
+<div class="flex items-center justify-end gap-4 mt-6">
+{{$slot}}
+</div>
 </div>

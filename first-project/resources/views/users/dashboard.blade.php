@@ -1,5 +1,5 @@
 <x-layout>
-<h1 class="title">Hello {{auth()->user()->name}}</h1>
+<h1 class="title">Welcome {{auth()->user()->name}}, you have {{$posts->total()}} posts</h1>
 {{-- Giriş yapan kullancıların post oluşturmasu için form --}}
 
 <div class="card mb-4">
@@ -10,6 +10,10 @@
     @if (session('success'))
     {{-- istersek bg parametresini de verebiliriz  --}}
      <x-flashMsg msg="{{ session('success') }}" />
+    @endif
+    @if (session('delete'))
+  
+     <x-flashMsg msg="{{ session('delete') }}" bg="bg-red-500" />
     @endif
  </div>
 
@@ -32,7 +36,15 @@
 <div class="grid grid-cols-2 gap-6">
 @foreach ($posts as $post)
 {{-- postCard componentini kullanarak postları tek tek yazdırma --}}
-<x-postCard :post="$post" />
+<x-postCard :post="$post" >
+ {{-- Delete post--}}
+ <form action="{{route('posts.destroy', $post)}}" method="POST">
+    @csrf
+    @method('DELETE')
+    <button type="submit" class="bg-red-500 text-white px-2 py-1 text-xs rounded-md">Delete</button>
+</form>
+
+</x-postCard>
 @endforeach
 </div>
 {{-- Sayfalama --}}
