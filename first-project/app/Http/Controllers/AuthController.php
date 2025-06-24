@@ -44,7 +44,8 @@ class AuthController extends Controller
         //Redirect
 
         //login başarılı ise home page git. 
-        return redirect()->route('home');
+       // return redirect()->route('home');
+       return redirect()->route('dashboard');
     }
     public function login(Request $request)
     {
@@ -83,6 +84,7 @@ class AuthController extends Controller
      //oturum yeniden oluşturulur(csrf token)
      $request->session()->regenerateToken();
       //redirect home page
-      return redirect()->route('home');
+     // return redirect()->route('home');
+     return redirect()->route('dashboard');
     }
 }

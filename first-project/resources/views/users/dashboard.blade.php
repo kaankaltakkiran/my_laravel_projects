@@ -27,6 +27,17 @@
         <button type="submit" class="primary-btn">Create</button>
     </form>
 </div>
+{{-- Kullanıcı postları  --}}
+<h2 class="font-bold mb-4">Your latest Posts</h2>
+<div class="grid grid-cols-2 gap-6">
+@foreach ($posts as $post)
+{{-- postCard componentini kullanarak postları tek tek yazdırma --}}
+<x-postCard :post="$post" />
+@endforeach
+</div>
+{{-- Sayfalama --}}
+{{-- links sayfalama öğelerini getirir. --}}
+{{$posts->links()}}
 </x-layout>
 
 
