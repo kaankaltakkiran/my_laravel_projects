@@ -16,6 +16,9 @@ use App\Http\Controllers\PostController;
 //otomatik olarak posts route'ına yönlendirir.
 Route::redirect('/', 'posts');
 
+//postları user parametresine göre getirir.
+Route::get('/{user}/posts', [DashboardController::class, 'userPosts'])->name('posts.user');
+
 // CRUD işlemleri için route
 //hepsini tek tek yazmaktansa resource ile tek seferde yazabiliriz
 Route::resource('posts', PostController::class);

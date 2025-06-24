@@ -14,4 +14,10 @@ class Post extends Model
         'title',
         'body',
     ];
+     
+    //belongsTo ile postun hangi kullanıcıya ait olduğunu belirler.
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

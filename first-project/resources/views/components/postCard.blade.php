@@ -5,7 +5,8 @@
     <h2 class="font-bold text-xl">{{ $post->title }}</h2>
     <div class="text-xs font-light mb-4">
         <span>{{ $post->created_at->diffForHumans() }}</span>
-        <a href="" class="text-blue-500 font-medium">Usurname</a>
+       {{--  post user burdaki user parametresi route fonksiyonuna gönderili --}}r.
+        <a href="{{route('posts.user', $post->user)}}" class="text-blue-500 font-medium">{{ $post->user->name }}</a>
     </div>
     <div class="text-sm">
      {{--    str words ile belirli uzunlukta bir string oluşturur. --}}
