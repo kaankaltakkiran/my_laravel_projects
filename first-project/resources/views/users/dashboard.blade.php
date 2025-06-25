@@ -18,7 +18,8 @@
  </div>
 
    {{--  posts.store çünkü controllerdaki bu fonksiyon veri tabanına yeni bir post ekler --}}
-    <form action="{{route('posts.store')}}" method="POST">
+   {{-- enctype="multipart/form-data" dosya yükleme için --}}
+    <form action="{{route('posts.store')}}" method="POST" enctype="multipart/form-data">
         @csrf
         <input type="text" name="title" value="{{old('title')}}" placeholder="Title" class="@error('title') ring-red-500 @enderror">
         @error('title')
@@ -28,6 +29,13 @@
         @error('body')
             <div class="error">{{ $message }}</div>
         @enderror
+        <div class="mb-4">
+            <label for="image">Cover photo</label>
+            <input type="file" name="image" id="image">
+               @error('image')
+            <div class="error">{{ $message }}</div>
+        @enderror
+        </div>
         <button type="submit" class="primary-btn">Create</button>
     </form>
 </div>

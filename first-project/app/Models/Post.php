@@ -13,6 +13,7 @@ class Post extends Model
     protected $fillable = [
         'title',
         'body',
+        'image',
     ];
      
     //belongsTo ile postun hangi kullanıcıya ait olduğunu belirler.

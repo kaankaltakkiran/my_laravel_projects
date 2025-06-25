@@ -8,6 +8,7 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 
 /* HasMiddleware ile ara katman ekledik */
 class PostController extends Controller implements HasMiddleware
@@ -58,14 +59,34 @@ class PostController extends Controller implements HasMiddleware
      */
     public function store(Request $request)
     {
+     
         //validation
-        $validated=$request->validate([
+        $request->validate([
             'title'=>['required','max:255'],
             'body'=>'required',
+            'image'=>['nullable','file','max:2048','mimes:jpeg,png,jpg,webp']
         ]);
+
+           //upload image
+        //1. dosya ismini al
+        //2. kısım dosyayı al
+        // Storage::put('posts_images',$request->image);
+        
+         //dosya olup olmadığına bakar
+         $path=null;
+         if($request->hasFile('image')){
+             //üsteki locale kaydeder. bu argüman ise public olarak  kaydeder.
+        $path= Storage::disk('public')->put('posts_images',$request->image); 
+      
+         } 
+         
         //post oluştur
         //ilgi kullanıcıya ait post oluşturur. 
-        Auth::user()->posts()->create($validated);
+        Auth::user()->posts()->create([
+            'title'=>$request->title,
+            'body'=>$request->body,
+            'image'=>$path
+        ]);
          
         // with metodu ile session mesajı oluşturur.
         //yani key value ile session mesajı oluşturur.
