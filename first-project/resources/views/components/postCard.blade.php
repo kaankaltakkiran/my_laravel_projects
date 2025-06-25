@@ -4,12 +4,13 @@
    <div class="card">
     {{-- post image --}}
     {{-- assset dosya yoluna bakar --}}
+    <div class="h-52 rounded-md mb-4 w-full object-cover overflow-hidden">
     @if ($post->image)
     <img src="{{asset('storage/'.$post->image)}}" alt="post image">
     @else
-    <img src="https://picsum.photos/400" alt="post image">
+    <img src="https://picsum.photos/200" alt="post image">
     @endif
-
+</div>
     <h2 class="font-bold text-xl">{{ $post->title }}</h2>
     <div class="text-xs font-light mb-4">
         <span>{{ $post->created_at->diffForHumans() }}</span>

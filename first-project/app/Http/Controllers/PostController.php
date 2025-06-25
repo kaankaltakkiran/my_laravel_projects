@@ -123,12 +123,29 @@ class PostController extends Controller implements HasMiddleware
         //Gate ile yetkisiz kullanıcıları engeller.
         Gate::authorize('modify',$post);
          //validation
-        $validated=$request->validate([
+          $request->validate([
             'title'=>['required','max:255'],
             'body'=>'required',
+            'image'=>['nullable','file','max:2048','mimes:jpeg,png,jpg,webp']
         ]);
+        //update image
+
+            //dosya olup olmadığına bakar
+         $path=$post->image??null;
+         if($request->hasFile('image')){
+            //eski dosyayı siler
+            if($post->image){
+                Storage::disk('public')->delete($post->image);
+            }
+             //üsteki locale kaydeder. bu argüman ise public olarak  kaydeder.
+        $path= Storage::disk('public')->put('posts_images',$request->image); 
+         } 
         //update post
-       $post->update($validated);
+       $post->update([
+           'title'=>$request->title,
+           'body'=>$request->body,
+           'image'=>$path
+       ]);
          
         // with metodu ile session mesajı oluşturur.
         //yani key value ile session mesajı oluşturur.
@@ -142,6 +159,10 @@ class PostController extends Controller implements HasMiddleware
     {
          //Gate ile yetkisiz kullanıcıları engeller.
         Gate::authorize('modify',$post);
+        //delete post image
+        if($post->image){
+            Storage::disk('public')->delete($post->image);
+        }
         //postları sil
         $post->delete();
         //sildikten sonra yönlendirme
