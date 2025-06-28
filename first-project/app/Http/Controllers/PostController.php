@@ -8,7 +8,9 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
+use App\Mail\WelcomeMail;
 
 /* HasMiddleware ile ara katman ekledik */
 class PostController extends Controller implements HasMiddleware
@@ -30,6 +32,14 @@ class PostController extends Controller implements HasMiddleware
      */
     public function index()
     {
+        //welcome mail gönder
+       /*  Mail::to('kaan@gmail.com')->send(new WelcomeMail(Auth::user())); */
+
+
+
+
+
+
         // post sayfasını göster
         //dizi ile veri yolluyoruz
        /*  return view('posts.index',[
@@ -82,11 +92,14 @@ class PostController extends Controller implements HasMiddleware
          
         //post oluştur
         //ilgi kullanıcıya ait post oluşturur. 
-        Auth::user()->posts()->create([
+        $post=Auth::user()->posts()->create([
             'title'=>$request->title,
             'body'=>$request->body,
             'image'=>$path
         ]);
+
+        //send email
+        Mail::to(Auth::user())->send(new WelcomeMail(Auth::user(), $post));
          
         // with metodu ile session mesajı oluşturur.
         //yani key value ile session mesajı oluşturur.
