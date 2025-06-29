@@ -53,9 +53,18 @@ Route::middleware('auth')->group(function () {
  //dashboard için route
 //middleware ile sadece auth user için route erişimini sağlar
 //->middleware('auth')
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+//verified middleware ile sadece verified user için route erişimini sağlar
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('verified')->name('dashboard');
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+//email verification gözüken sayfa
+Route::get('/email/verify', [AuthController::class, 'verifyNotice'])->name('verification.notice');
+//email doğrulama sayfası
+Route::get('/email/verify/{id}/{hash}', [AuthController::class, 'verifyEmail'])->middleware('signed')->name('verification.verify');
+//yeniden email doğrulama isteği
+//throttle ile 6 saniyede 1 kere istek kabul edilir
+Route::post('/email/verification-notification', [AuthController::class, 'verifyHandler'])->middleware('throttle:6,1')->name('verification.send');
 });
 
 

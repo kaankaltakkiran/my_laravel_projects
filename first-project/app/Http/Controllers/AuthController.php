@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 class AuthController extends Controller
 {
@@ -40,13 +42,33 @@ class AuthController extends Controller
         //register edilen kullanıcının otomatik login olmasını sağlıyor
         //login kontrol etmez bilgileri.
         Auth::login($user);
-
+        
+        //send register email
+       event(new Registered($user));
+        
         //Redirect
 
         //login başarılı ise home page git. 
        // return redirect()->route('home');
        return redirect()->route('dashboard');
+
     }
+         //send reigster email sayfası
+      public function verifyNotice(){
+        return view('auth.verify-email');
+    }
+    //email doğrulaması yapan kısım
+    public function verifyEmail(EmailVerificationRequest $request){
+        $request->fulfill();
+        return redirect()->route('dashboard');
+    }
+    //yeniden email doğrulama isteği yapan kısım
+    public function verifyHandler(Request $request){
+        $request->user()->sendEmailVerificationNotification();
+       
+        return back()->with('message','verification-link-sent');
+    }
+
     public function login(Request $request)
     {
       //validate user 

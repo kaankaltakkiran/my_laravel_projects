@@ -24,7 +24,8 @@ class PostController extends Controller implements HasMiddleware
           /*  index ve show methodlarına uygulanacak
           login sayfasına yönlendircek
           */
-           new Middleware('auth',except:['index','show']),
+          /* auth  ve verified middleware sadece index ve show methodlarına uygulanacak */
+           new Middleware(['auth','verified'],except:['index','show']),
         ];
     }
     /**
