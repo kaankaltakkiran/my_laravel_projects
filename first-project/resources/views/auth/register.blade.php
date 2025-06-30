@@ -35,6 +35,10 @@
             @error('password_confirmation')
             <div class="error">{{ $message }}</div>
         @enderror
+        <div class="mb-4">
+            <input type="checkbox" name="subscribe" id="subscribe">
+            <label for="subscribe">Subscribe to our newsletter</label>
+        </div>
 
         <button class="primary-btn" >Register</button>
     </form>

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use App\Events\UserSubscribed;
 
 class AuthController extends Controller
 {
@@ -45,6 +46,11 @@ class AuthController extends Controller
         
         //send register email
        event(new Registered($user));
+
+       //event-listener subscribe
+       if($request->subscribe){
+        event(new UserSubscribed($user));
+       }
         
         //Redirect
 
