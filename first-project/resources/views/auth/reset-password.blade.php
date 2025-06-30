@@ -1,22 +1,18 @@
 <x-layout>
-    <h1 class="title">Login</h1>
-        {{--    Session message --}}
- <div >
-    @if (session('status'))
-    {{-- istersek bg parametresini de verebiliriz  --}}
-     <x-flashMsg msg="{{ session('status') }}" />
-    @endif
- </div>
+    <h1 class="title">Reset Your Password</h1>
     <div class="mx-auto max-w-screen-sm card">
-    <form action="{{route('login')}}" method="POST">
+    <form action="{{route('password.update')}}" method="POST">
        {{--  güvenlik sağlar  --}}
         @csrf
+      {{--   password tokeni --}}
+        <input type="hidden" name="token" value="{{ $token }}">
 
         <input type="text" name="email" value="{{old('email')}}" placeholder="Email" class="@error('email') ring-red-500 @enderror">
 
              @error('email')
             <div class="error">{{ $message }}</div>
         @enderror
+
 
       {{--   password name değeri confirmation ile aynı olmalı
         secret:> secret_confirmation --}}
@@ -26,20 +22,13 @@
            @error('password')
             <div class="error">{{ $message }}</div>
         @enderror
-<div class="mb-4 flex justify-between items-center">
-    <div>
-        <input type="checkbox" name="remember" id="remember">
-        <label for="remember">Remember me</label>
-        </div>
-      {{--   password Reset --}}
-        <a class="text-blue-500" href="{{route('password.request')}}">Forgot Password?</a>
-</div>
 
-   @error('failed')
+         <input type="password" name="password_confirmation" placeholder="Confirm Password" class="@error('password') ring-red-500 @enderror">
+
+            @error('password_confirmation')
             <div class="error">{{ $message }}</div>
         @enderror
-
-        <button class="btn primary-btn" >Login</button>
+        <button class="primary-btn" >Reset Password</button>
     </form>
     </div>
 </x-layout>

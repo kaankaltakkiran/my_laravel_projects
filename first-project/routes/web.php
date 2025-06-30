@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\ResetPasswordController;
 
 /* Route::get('/', function () {
     return view('welcome');
@@ -46,6 +47,18 @@ Route::get('/login', function () {
 })->name('login');
 
 Route::post('/login', [AuthController::class, 'login']);
+
+//Reset password sıfırlamak için sorduğumuz sayfaya yönlendirir.
+Route::view('/forgot-password', 'auth.forgot-password')->name('password.request');
+
+//reset password için sorduğu emaili post ile gönderir.
+Route::post('/forgot-password', [ResetPasswordController::class, 'passwordEmail']);
+
+//reset password token
+Route::get('/reset-password/{token}', [ResetPasswordController::class,'passwordReset'])->name('password.reset');
+
+//password update eden kısım
+Route::post('/reset-password', [ResetPasswordController::class, 'passwordUpdate'])->name('password.update');
 
 });
 //auth middleware ile sadece auth user için route erişimini sağlar
