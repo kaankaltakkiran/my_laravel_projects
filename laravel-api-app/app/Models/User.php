@@ -46,4 +46,8 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    //user modelindeki posts property'si ile post tablosundaki user_id field'ini ilişkilendiriyoruz.
+    public function posts(){
+        return $this->hasMany(Post::class);
+    }
 }

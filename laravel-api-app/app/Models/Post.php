@@ -15,4 +15,8 @@ class Post extends Model
         'title',
         'body',
     ];
+    //post modelindeki user property'si ile user tablosundaki user_id field'ini ilişkilendiriyoruz.
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }

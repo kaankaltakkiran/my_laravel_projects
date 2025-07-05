@@ -14,9 +14,12 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            /* constraint ile ilişkilendirme yapar. ve cascadeOnDelete ile user slindiğinde postları da silinir */
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->string('title');
             $table->text('body');
+            $table->timestamps();
+          
         });
     }
 

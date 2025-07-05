@@ -4,9 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Support\Facades\Gate;
 
-class PostController extends Controller
+class PostController extends Controller implements HasMiddleware
 {
+    public static function middleware()
+    {
+        /* auth:sanctum middleware'si ile sadece authenticated kullanıcılar post oluşturabilir.
+       except ile index ve show methodları dışındaki tüm methodlara auth:sanctum middleware'si uygulanır.
+       */
+       return [ new Middleware('auth:sanctum',except:['index','show'])];
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -28,8 +39,9 @@ class PostController extends Controller
             'title' => ['required', 'max:255'],
             'body' => 'required',
         ]);
-       //validate edilen verileri post tablosuna kaydeder.
-        $post=Post::create($fields);
+       //validate edilen verileri post tablosuna kaydeder
+       //kullanıcıya ait postları oluşturur.
+        $post=$request->user()->posts()->create($fields);
         //kaydedilen verileri geri döndürür.
         return $post;
         //buda olur.
@@ -54,6 +66,9 @@ class PostController extends Controller
     {
         //verileri güncelleme
 
+        //postun sahibi mi kontrol et
+         Gate::authorize('modify', $post);
+
         //postları validasyon yapar.
         $fields=$request->validate([
             'title' => ['required', 'max:255'],
@@ -70,6 +85,9 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        //postun sahibi mi kontrol et
+        Gate::authorize('modify',$post);
+
         //verileri silme
         $post->delete();
         //mesaj dönme          
