@@ -39,9 +39,16 @@ class AuthController extends Controller
 
          //kullanıcı yoksa veya şifre eşleşmiyorsa
           if(!$user || !Hash::check($request->password,$user->password)){
-            return response([
+          /*   return response([
                 'message'=>'The provided credentials do not match our records'
-            ]);
+            ]); */
+            return [
+              'errors'=>[
+                'email'=>[
+                  'The provided credentials do not match our records'
+                ]
+              ]
+                ];
           }
         //giriş başarılı token oluştur
         $token=$user->createToken($user->name);
