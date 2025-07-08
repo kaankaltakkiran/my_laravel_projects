@@ -24,7 +24,9 @@ class PostController extends Controller implements HasMiddleware
     public function index()
     {
         // Tüm postları getirir.
-        return Post::all();
+         //return Post::all();
+         //kullanıcı bilgileri ile birlikte en son sıralı postları getir
+         return Post::with('user')->latest()->get();
     }
 
     /**
@@ -43,7 +45,12 @@ class PostController extends Controller implements HasMiddleware
        //kullanıcıya ait postları oluşturur.
         $post=$request->user()->posts()->create($fields);
         //kaydedilen verileri geri döndürür.
-        return $post;
+        //return $post;
+        //post ve kullanıcının bilgilerini geri döndürür.
+        return [
+            'post'=>$post,
+            'user'=>$post->user,
+        ];
         //buda olur.
         //return ['post'=>$post];
     }
@@ -54,7 +61,13 @@ class PostController extends Controller implements HasMiddleware
     public function show(Post $post)
     {
         //Belirli bir postu getirir.
-         return $post;
+         //return $post;
+          // post ve kullanıcının bilgilerini geri döndürür.
+            return [
+            'post'=>$post,
+            'user'=>$post->user,
+        ];
+
         //buda olur.
         //return ['post'=>$post];
     }
