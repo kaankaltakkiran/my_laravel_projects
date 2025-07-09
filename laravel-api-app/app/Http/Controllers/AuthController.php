@@ -51,7 +51,9 @@ class AuthController extends Controller
                 ];
           }
         //giriş başarılı token oluştur
-        $token=$user->createToken($user->name);
+        //$token=$user->createToken($user->name);
+        //token expire süresi ayarlamak için
+         $token=$user->createToken($user->name,expiresAt: now()->addDay());
         //user ve tokeni döndür
         return[
          'user'=>$user,
