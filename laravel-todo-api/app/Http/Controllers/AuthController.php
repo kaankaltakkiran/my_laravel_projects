@@ -32,7 +32,6 @@ class AuthController extends Controller
             'email' => 'required|email|exists:users',
             'password' => 'required',
         ]);
-
         $user = User::where('email', $request->email)->first();
         if (!$user || !Hash::check($request->password, $user->password)) {
             return [
@@ -43,7 +42,8 @@ class AuthController extends Controller
                 ],
             ];
         }
-        $token = $user->createToken($request->name, expiresAt: now()->addDay());
+        //$token = $user->createToken($user->name);
+        $token = $user->createToken($user->name, expiresAt: now()->addDay());
 
         return [
             'user' => $user,
