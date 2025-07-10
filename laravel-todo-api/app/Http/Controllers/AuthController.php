@@ -18,7 +18,8 @@ class AuthController extends Controller
         ]);
 
         $user = User::create($fields);
-        $token = $user->createToken($request->name);
+        $token = $user->createToken($request->name, expiresAt: now()->addDay());
+
         return [
             'user' => $user,
             'token' => $token->plainTextToken,
@@ -43,7 +44,8 @@ class AuthController extends Controller
                 ],
             ];
         }
-        $token = $user->createToken($user->name);
+        $token = $user->createToken($request->name, expiresAt: now()->addDay());
+
         return [
             'user' => $user,
             'token' => $token->plainTextToken,
