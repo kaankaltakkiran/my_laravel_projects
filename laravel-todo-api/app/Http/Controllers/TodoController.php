@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreTodoRequest;
-use App\Http\Requests\UpdateTodoRequest;
 use App\Models\Todo;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class TodoController extends Controller
 {
@@ -14,14 +14,26 @@ class TodoController extends Controller
     public function index()
     {
         //
+        return Todo::with('user')->latest()->get();
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreTodoRequest $request)
+    public function store(Request $request)
     {
         //
+        $fields = $request->validate([
+            'title' => ['required', 'max:255'],
+            'description' => 'required',
+            'completed' => 'required|boolean',
+        ]);
+        $todo = $request->user()->todos()->create($fields);
+        return [
+            'todo' => $todo,
+            'user' => $todo->user,
+        ];
+
     }
 
     /**
@@ -30,14 +42,29 @@ class TodoController extends Controller
     public function show(Todo $todo)
     {
         //
+        return [
+            'todo' => $todo,
+            'user' => $todo->user,
+        ];
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateTodoRequest $request, Todo $todo)
+    public function update(Request $request, Todo $todo)
     {
         //
+        Gate::authorize('modify', $todo);
+
+        $fields = $request->validate([
+            'title' => ['required', 'max:255'],
+            'description' => 'required',
+            'completed' => 'required|boolean',
+        ]);
+
+        $todo->update($fields);
+        return $todo;
+
     }
 
     /**
@@ -45,6 +72,12 @@ class TodoController extends Controller
      */
     public function destroy(Todo $todo)
     {
-        //
+
+        Gate::authorize('modify', $todo);
+
+        $todo->delete();
+
+        return ['message' => 'Todo deleted successfully.'];
+
     }
 }
