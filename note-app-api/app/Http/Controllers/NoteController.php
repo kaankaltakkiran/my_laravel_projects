@@ -19,6 +19,7 @@ class NoteController extends Controller
     }
     public function show(Note $note)
     {
+        return $note;
     }
     public function update(Request $request, Note $note)
     {
