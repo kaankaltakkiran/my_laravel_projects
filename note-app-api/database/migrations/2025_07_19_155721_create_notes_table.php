@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('content');
-            $table->tinyInteger('is_deleted')->default(0);
+            $table->tinyInteger('status')->default(0);
             $table->timestamps();
         });
 
