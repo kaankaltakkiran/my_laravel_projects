@@ -23,28 +23,23 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        // $token = Auth::login($user);
-        // $token = Auth::guard('api')->login($user);
-
         return response()->json([
             'message' => 'Kullanıcı başarıyla kaydedildi',
             'user' => $user,
         ]);
-
     }
 
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
 
-        //$token = Auth::attempt($credentials);
-        $token = Auth::guard('api')->attempt($credentials);
+        $token = Auth::attempt($credentials);
 
         if (!$token) {
             return response()->json(['error' => 'Email veya şifre yanlış'], 401);
         }
-        //$user = Auth::user();
-        $user = Auth::guard('api')->user();
+
+        $user = Auth::user();
         return response()->json([
             'message' => 'Giriş başarılı',
             'user' => $user,
@@ -55,22 +50,20 @@ class AuthController extends Controller
         ]);
     }
 
-    public function me()
+    public function profile()
     {
         return response()->json(Auth::user());
     }
 
     public function logout()
     {
-
-        Auth::guard('api')->logout();
+        Auth::logout();
         return response()->json(['message' => 'Çıkış başarılı.']);
-
     }
 
     public function refresh()
     {
-        $user = Auth::guard('api')->user();
+        $user = Auth::user();
         $token = Auth::refresh();
         return response()->json([
             'message' => 'Yenileme başarılı',
@@ -81,5 +74,4 @@ class AuthController extends Controller
             ],
         ]);
     }
-
 }

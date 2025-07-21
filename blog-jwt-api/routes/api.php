@@ -8,7 +8,7 @@ Route::apiResource('blogs', BlogController::class);
 // JWT Token olması gereken işlemler
 Route::middleware('auth:api')->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
-    Route::get('me', [AuthController::class, 'me']);
+    Route::get('profile', [AuthController::class, 'profile']);
     Route::post('refresh', [AuthController::class, 'refresh']);
 });
 
