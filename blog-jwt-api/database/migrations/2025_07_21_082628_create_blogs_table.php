@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('blogs', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->text('description');
             $table->boolean('is_published')->default(0); // 0: Yayınlanmadı, 1: Yayınlandı
             $table->timestamp('published_at')->nullable();
