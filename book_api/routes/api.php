@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Route;
 // JWT gerektirmeyen Crud işlemleri
 Route::get('authors', [AuthorController::class, 'index']);
 Route::get('authors/{author}', [AuthorController::class, 'show']);
+Route::get('categories', [CategoryController::class, 'index']);
+Route::get('categories/{category}', [CategoryController::class, 'show']);
 
 // JWT gerektirmeyen Auth işlemleri
 Route::controller(AuthController::class)->group(function () {
@@ -23,6 +25,6 @@ Route::middleware('auth:api')->group(function () {
 
     // JWT gerektiren Crud işlemleri
     Route::apiResource('authors', AuthorController::class)->except(['index', 'show']);
-    Route::apiResource('categories', CategoryController::class);
+    Route::apiResource('categories', CategoryController::class, )->except(['index', 'show']);
     Route::apiResource('books', BookController::class);
 });
