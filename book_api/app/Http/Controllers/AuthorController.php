@@ -51,7 +51,7 @@ class AuthorController extends Controller
 
         $author->delete();
         return response()->json([
-            'message' => 'Blog silindi',
+            'message' => 'Author silindi',
         ]);
 
     }
