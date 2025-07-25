@@ -5,19 +5,24 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 
-// JWT Token olması gereken işlemler
+// JWT gerektirmeyen Crud işlemleri
+Route::get('authors', [AuthorController::class, 'index']);
+Route::get('authors/{author}', [AuthorController::class, 'show']);
+
+// JWT gerektirmeyen Auth işlemleri
+Route::controller(AuthController::class)->group(function () {
+    Route::post('register', 'register');
+    Route::post('login', 'login');
+});
+
+// JWT gerektiren işlemler
 Route::middleware('auth:api')->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
     Route::get('profile', [AuthController::class, 'profile']);
     Route::post('refresh', [AuthController::class, 'refresh']);
 
-    Route::apiResource('authors', AuthorController::class);
+    // JWT gerektiren Crud işlemleri
+    Route::apiResource('authors', AuthorController::class)->except(['index', 'show']);
     Route::apiResource('categories', CategoryController::class);
     Route::apiResource('books', BookController::class);
-});
-
-// JWT Token olmayan işlemler
-Route::controller(AuthController::class)->group(function () {
-    Route::post('register', [AuthController::class, 'register']);
-    Route::post('login', [AuthController::class, 'login']);
 });

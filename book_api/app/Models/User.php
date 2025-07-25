@@ -56,4 +56,8 @@ class User extends Authenticatable implements JWTSubject
             'password' => 'hashed',
         ];
     }
+    public function authors()
+    {
+        return $this->hasMany(Author::class);
+    }
 }
