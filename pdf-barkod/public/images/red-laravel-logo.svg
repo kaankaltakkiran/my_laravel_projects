@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000">
+  <!-- Red Laravel-style logo with geometric design -->
+  <g fill="#FF2D20">
+    <!-- Main geometric shapes forming a Laravel-inspired logo -->
+    <path d="M200 200 L400 100 L600 200 L800 100 L800 300 L600 400 L800 500 L800 700 L600 800 L400 700 L200 800 L200 600 L400 500 L200 400 L200 200 Z"/>
+    <path d="M400 300 L600 200 L600 400 L400 500 L400 300 Z"/>
+    <path d="M200 400 L400 300 L400 500 L200 600 L200 400 Z"/>
+    <path d="M600 400 L800 300 L800 500 L600 600 L600 400 Z"/>
+    <path d="M400 500 L600 400 L600 600 L400 700 L400 500 Z"/>
+  </g>
+</svg>

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 80">
+  <!-- Laravel Logo - Attığınız resimle uyumlu -->
+  <g>
+    <!-- Laravel Icon (Kırmızı) -->
+    <g fill="#FF2D20">
+      <!-- Ana şekil -->
+      <path d="M30 15 L45 8 L60 15 L60 25 L45 32 L30 25 Z"/>
+      <path d="M25 30 L40 23 L55 30 L55 40 L40 47 L25 40 Z"/>
+      <path d="M35 45 L50 38 L65 45 L65 55 L50 62 L35 55 Z"/>
+      <!-- Bağlantı çizgileri -->
+      <path d="M45 32 L45 38 M50 38 L50 32"/>
+      <path d="M40 47 L40 53 M50 53 L50 47"/>
+    </g>
+    
+    <!-- Laravel Text (Siyah) -->
+    <g fill="#000000">
+      <!-- L -->
+      <path d="M80 25 L80 55 L95 55 L95 50 L85 50 L85 25 Z"/>
+      <!-- a -->
+      <circle cx="102" cy="42" r="8"/>
+      <path d="M110 35 L110 55 L105 55 L105 50"/>
+      <!-- r -->
+      <path d="M115 35 L115 55 L120 55 L120 45 L125 40 L125 35"/>
+      <!-- a -->
+      <circle cx="132" cy="42" r="8"/>
+      <path d="M140 35 L140 55 L135 55 L135 50"/>
+      <!-- v -->
+      <path d="M145 35 L150 50 L155 35 L160 35 L152 55 L148 55 L140 35"/>
+      <!-- e -->
+      <circle cx="167" cy="42" r="8"/>
+      <path d="M159 42 L175 42"/>
+      <!-- l -->
+      <path d="M180 25 L180 55 L185 55 L185 25"/>
+    </g>
+  </g>
+</svg>
