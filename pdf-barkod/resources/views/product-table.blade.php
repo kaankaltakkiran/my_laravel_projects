@@ -140,7 +140,7 @@
     <div class="header">
         <div class="logo-container">
             <div style="text-align: center; margin-bottom: 15px;">
-                <img src="{{ public_path('images/red-laravel-logo.svg') }}" alt="Laravel Logo" style="width: 80px; height: auto; margin-right: 15px; vertical-align: middle;">
+                <img src="{{ public_path('images/Laravel-Logo.wine.png') }}" alt="Laravel Logo" style="width: 80px; height: auto; margin-right: 15px; vertical-align: middle;">
                 <span style="font-size: 24px; font-weight: bold; color: #333; vertical-align: middle;">Laravel</span>
             </div>
         </div>
@@ -163,7 +163,7 @@
             <tr>
                 <td style="text-align: center; font-weight: bold;">{{ $index + 1 }}</td>
                 <td class="product-name">{{ $product['name'] }}</td>
-                <td class="price">{{ number_format($product['price'], 2, ',', '.') }} ₺</td>
+                <td class="price">{{ number_format($product['price'], 0, ',', '.') }} ₺</td>
                 <td class="stock">{{ $product['stock'] }} adet</td>
                 <td class="barcode-cell">
                     <div class="barcode-wrapper">
