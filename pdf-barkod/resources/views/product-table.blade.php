@@ -301,5 +301,35 @@
         <p>Toplam {{ count($barcodeTypes) }} barkod tipi listelenmektedir.</p>
     </div>
     </div>
+
+    <!-- 3. SAYFA - BARCODE GRID TABLE -->
+    <div class="page-break">
+        <div class="header">
+            <h1 style="color: #007bff; margin-bottom: 10px;">BARKOD KOLEKSİYONU</h1>
+            <p style="color: #666; font-size: 14px; margin-bottom: 20px;">@php echo count($barcodeGrid); @endphp Adet Barkod - Code 128 Formatı</p>
+        </div>
+        <table border="1" cellspacing="0" cellpadding="4" width="100%">
+            <tbody>
+                @php $rows = 8; $cols = 7; @endphp
+                @for($row = 0; $row < $rows; $row++)
+                <tr>
+                    @for($col = 0; $col < $cols; $col++)
+                        @php $index = $row * $cols + $col; @endphp
+                        <td align="center">
+                            @if(isset($barcodeGrid[$index]))
+                                {!! $barcodeGrid[$index]['barcode_svg'] !!}<br>
+                                <span style="font-size:9px;">{{ $barcodeGrid[$index]['number'] }}</span>
+                            @endif
+                        </td>
+                    @endfor
+                </tr>
+                @endfor
+            </tbody>
+        </table>
+             <div class="footer">
+        <p>Bu rapor otomatik olarak {{ date('d.m.Y H:i:s') }} tarihinde oluşturulmuştur.</p>
+        <p>Toplam {{ count($barcodeGrid) }} barkod listelenmektedir.</p>
+    </div>
+    </div>
 </body>
 </html>

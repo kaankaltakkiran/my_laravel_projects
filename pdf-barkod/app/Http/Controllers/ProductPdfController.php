@@ -91,8 +91,21 @@ class ProductPdfController extends Controller
             }
         }
 
+        // 3. sayfa için sayfaya tam sığacak kadar barkod oluştur (ör: 7 sütun x 9 satır = 63 barkod)
+        $barcodeGrid = [];
+        $barcodeRows = 8;
+        $barcodeCols = 7;
+        $barcodeCount = $barcodeRows * $barcodeCols;
+        for ($i = 1; $i <= $barcodeCount; $i++) {
+            $barcodeNumber = str_pad($i, 4, '0', STR_PAD_LEFT) . '567890';
+            $barcodeGrid[] = [
+                'number' => $barcodeNumber,
+                'barcode_svg' => $dns1d->getBarcodeHTML($barcodeNumber, 'C128', 1, 28, 'black', true),
+            ];
+        }
+
         // PDF view'ını oluştur
-        $pdf = Pdf::loadView('product-table', compact('products', 'barcodeTypes'));
+        $pdf = Pdf::loadView('product-table', compact('products', 'barcodeTypes', 'barcodeGrid'));
 
         // PDF boyutunu ayarla (portrait başlangıç)
         $pdf->setPaper('A4', 'portrait');
