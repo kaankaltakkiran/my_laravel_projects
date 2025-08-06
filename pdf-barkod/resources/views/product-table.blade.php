@@ -134,6 +134,96 @@
             border-top: 1px solid #ddd;
             padding-top: 15px;
         }
+        
+        /* Page break styles */
+        .page-break {
+            page-break-before: always;
+        }
+        
+        /* Horizontal page styles */
+ 
+        
+        .barcode-showcase {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            width: 100%;
+            max-width: 900px;
+            margin: 20px auto;
+        }
+        
+        .barcode-item {
+            text-align: center;
+            padding: 20px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .barcode-item h3 {
+            margin: 0 0 15px 0;
+            color: #333;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        
+        .barcode-display {
+            margin: 15px 0;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .barcode-code {
+            font-size: 12px;
+            color: #666;
+            margin-top: 10px;
+            font-family: monospace;
+        }
+        
+        /* Full barcode page styles */
+        .full-barcode-page {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .full-barcode-container {
+            padding: 40px;
+            border: 3px solid #007bff;
+            border-radius: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .full-barcode-title {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .full-barcode-display {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin: 20px 0;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .full-barcode-number {
+            font-size: 18px;
+            margin-top: 20px;
+            font-family: monospace;
+            letter-spacing: 2px;
+        }
     </style>
 </head>
 <body>
@@ -185,6 +275,31 @@
     <div class="footer">
         <p>Bu rapor otomatik olarak {{ date('d.m.Y H:i:s') }} tarihinde oluşturulmuştur.</p>
         <p>Toplam {{ count($products) }} ürün listelenmektedir.</p>
+    </div>
+
+    <!-- 2. SAYFA - HORIZONTAL BARCODE SHOWCASE -->
+    <div class="page-break">
+        <div class="header">
+            <h1 style="color: #007bff; margin-bottom: 10px;">BARKOD TİPLERİ VİTRİNİ</h1>
+            <p style="color: #666; font-size: 14px; margin-bottom: 30px;">Farklı Barkod Formatları ve Renkleri</p>
+        </div>
+        
+        <div class="barcode-showcase">
+            @foreach($barcodeTypes as $barcodeType)
+            <div class="barcode-item">
+                <h3>{{ $barcodeType['name'] }}</h3>
+                <div class="barcode-display">
+                    {!! $barcodeType['barcode_svg'] !!}
+                </div>
+                <div class="barcode-code">{{ $barcodeType['barcode'] }}</div>
+            </div>
+            @endforeach
+        </div>
+
+           <div class="footer">
+        <p>Bu rapor otomatik olarak {{ date('d.m.Y H:i:s') }} tarihinde oluşturulmuştur.</p>
+        <p>Toplam {{ count($barcodeTypes) }} barkod tipi listelenmektedir.</p>
+    </div>
     </div>
 </body>
 </html>
